@@ -1,0 +1,4 @@
+funcion_principal
+    entero a
+    booleano z
+fin_principal
