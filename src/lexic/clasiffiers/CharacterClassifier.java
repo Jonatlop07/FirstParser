@@ -1,3 +1,6 @@
+package lexic.clasiffiers;
+
+import lexic.exceptions.CharacterException;
 
 class CharacterClassifier extends Classifier {
     
@@ -16,11 +19,10 @@ class CharacterClassifier extends Classifier {
         switch ( state ) {
             case 0:
                 if ( symbol == '\'' ) return 1;
-                if ( symbol == '\t' ) return 4;
                 return -1;
             case 1:
                 if ( Character.isLetter( symbol ) || Character.toLowerCase( symbol ) != 'ñ'
-                        || symbol == '_' || symbol == '\n' || symbol == ' ' )
+                    || symbol == '_' || symbol == '\n' || symbol == ' ' )
                     return 2;
                 if ( symbol == '\'' ) return 3;
                 return -2;
@@ -29,10 +31,8 @@ class CharacterClassifier extends Classifier {
                 throw new CharacterException();
             case 3:
                 return -1;
-            case 4:
-                return -1;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException( "caracteres" );
         }
     }
 }

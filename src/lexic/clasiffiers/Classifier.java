@@ -1,5 +1,7 @@
-abstract class Classifier {
+package lexic.clasiffiers;
 
+public abstract class Classifier {
+    
     public static Classifier getIdentifier() {
         return IdentifiersClassifier.getInstance();
     }

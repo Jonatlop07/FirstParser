@@ -1,3 +1,5 @@
+package lexic.clasiffiers;
+
 class NumbersClassifier extends Classifier {
     
     private static Classifier uniqueInstance;
@@ -32,7 +34,7 @@ class NumbersClassifier extends Classifier {
             case 6:
                 return -1;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException( "numeros" );
         }
     }
 }

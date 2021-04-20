@@ -1,3 +1,5 @@
+package lexic.clasiffiers;
+
 class IdentifiersClassifier extends Classifier {
     
     private static Classifier uniqueInstance;
@@ -18,11 +20,11 @@ class IdentifiersClassifier extends Classifier {
                 return -1;
             case 1:
                 if ( Character.isLetter( symbol ) || Character.isDigit( symbol )
-                        || symbol == '_' && Character.toLowerCase( symbol ) != 'ñ' )
+                    || symbol == '_' && Character.toLowerCase( symbol ) != 'ñ' )
                     return 1;
                 return -1;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException( "identificadores" );
         }
     }
 }

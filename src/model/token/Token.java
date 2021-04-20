@@ -1,7 +1,6 @@
-import java.util.EnumMap;
-import java.util.Map;
+package model.token;
 
-class Token {
+public class Token {
     
     private final String lexem;
     private final int row;
@@ -36,13 +35,13 @@ class Token {
         }
         
         return new StringBuilder()
-                .append( "<" )
-                .append( identifier )
-                .append( "," )
-                .append( row )
-                .append( "," )
-                .append( column )
-                .append( ">" )
-                .toString();
+            .append( "<" )
+            .append( identifier )
+            .append( "," )
+            .append( row )
+            .append( "," )
+            .append( column )
+            .append( ">" )
+            .toString();
     }
 }

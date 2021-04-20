@@ -1,3 +1,5 @@
+package lexic.clasiffiers;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -7,7 +9,7 @@ class OperatorAndSpSymbolClassifier extends Classifier {
     private static Classifier uniqueInstance;
     
     private static Set<Character> unicharacterOperators = new HashSet<>(
-            Arrays.asList( '+', '-', '*', '/', '%', ':', ';', ',', '.', '(', ')' )
+        Arrays.asList( '+', '-', '*', '/', '%', ':', ';', ',', '.', '(', ')' )
     );
     
     private OperatorAndSpSymbolClassifier() {}
@@ -43,7 +45,7 @@ class OperatorAndSpSymbolClassifier extends Classifier {
             case 8:
                 return -1;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException( "operadores y simbolos especiales" );
         }
     }
 }

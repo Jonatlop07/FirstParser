@@ -1,3 +1,7 @@
+package lexic.clasiffiers;
+
+import lexic.exceptions.IllegalStringException;
+
 class StringClassifier extends Classifier {
     
     private static Classifier uniqueInstance;
@@ -18,12 +22,13 @@ class StringClassifier extends Classifier {
                 return -1;
             case 1:
                 if ( symbol == '"' ) return 2;
-                if ( symbol == '\0') throw new IllegalStringException();
+                if ( symbol == '\n' || symbol == '\r' || symbol == '\0' )
+                    throw new IllegalStringException();
                 return 1;
             case 2:
                 return -1;
             default:
-                throw new IllegalStateException();
+                throw new IllegalStateException( "cadenas" );
         }
     }
 }

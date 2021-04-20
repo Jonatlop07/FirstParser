@@ -1,6 +1,8 @@
+package model.token;
+
 import java.util.*;
 
-final class TokenTypes {
+public final class TokenTypes {
     
     private TokenTypes() {}
     
@@ -12,15 +14,15 @@ final class TokenTypes {
     public static final String KEYWORD = "keyword";
     
     public static final HashSet<String> reservedKeywords = new HashSet<>( Arrays.asList(
-            "funcion_principal", "fin_principal",
-            "booleano", "verdadero", "falso",
-            "caracter", "entero", "real", "cadena",
-            "imprimir", "leer",
-            "si", "si_no", "entonces", "fin_si",
-            "mientras", "para", "hacer", "fin_mientras", "fin_para",
-            "seleccionar", "entre", "caso", "romper", "defecto", "fin_seleccionar",
-            "estructura", "fin_estructura",
-            "funcion", "retornar", "fin_funcion"
+        "funcion_principal", "fin_principal",
+        "booleano", "verdadero", "falso",
+        "caracter", "entero", "real", "cadena",
+        "imprimir", "leer",
+        "si", "si_no", "entonces", "fin_si",
+        "mientras", "para", "hacer", "fin_mientras", "fin_para",
+        "seleccionar", "entre", "caso", "romper", "defecto", "fin_seleccionar",
+        "estructura", "fin_estructura",
+        "funcion", "retornar", "fin_funcion"
     ) );
     
     public static final HashMap<String, String> typeIds;
