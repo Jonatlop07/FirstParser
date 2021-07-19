@@ -1,0 +1,15 @@
+funcion entero sum(entero a, entero b) hacer
+    retornar a + b;
+    // fin
+fin_funcion
+
+funcion_principal
+
+    imprimir( sum(1,2));
+
+fin_principal
+
+estructura Point
+    entero a;
+    entero b;
+fin_estructura

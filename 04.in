@@ -1,0 +1,25 @@
+//Mayor entre 2 numeros - Funciones
+//Llamado a una Función, valor de retorno
+
+funcion_principal
+    entero num1,num2,may;
+    imprimir( "digite un numero entero positivo " );
+    leer( num1 );
+    imprimir( "digite un numero entero positivo " );
+    leer( num2 );
+    may = mayor(num1,num2);
+    imprimir ("El numero mayor es ", may);
+fin_principal
+
+funcion entero mayor(entero num1, entero num2) hacer
+    entero res;
+    si ( num1 > num2 ) entonces
+       res = num1;
+    si_no
+       res = num2;
+    fin_si
+    retornar res;
+fin_funcion
+
+
+

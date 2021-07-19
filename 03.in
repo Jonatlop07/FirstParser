@@ -1,0 +1,21 @@
+funcion_principal
+    si ( num1 > num2 ) entonces
+       res = num1;
+       si( res == b ) entonces
+            imprimir("Test if");
+        si_no
+            imprimir("Test sino");
+        fin_si
+    si_no
+       res = num2;
+    fin_si
+
+    si ( num1 > num2 ) entonces
+       res = num1;
+       si( res == b ) entonces
+            imprimir("Test if");
+       fin_si
+    si_no
+       res = num2;
+    fin_si
+fin_principal

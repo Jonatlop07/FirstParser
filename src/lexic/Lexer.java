@@ -1,26 +1,16 @@
 package lexic;
 
-import lexic.clasiffiers.Classifier;
-import lexic.exceptions.CharacterException;
-import lexic.exceptions.IllegalStringException;
-import lexic.exceptions.IllegalStateException;
-
-import model.token.Token;
-
-import static model.token.TokenTypes.reservedKeywords;
-import static model.token.TokenTypes.typeIds;
-
-import static model.token.TokenTypes.IDENTIFIER;
-import static model.token.TokenTypes.KEYWORD;
-import static model.token.TokenTypes.INTEGER;
-import static model.token.TokenTypes.REAL;
-import static model.token.TokenTypes.STRING;
-import static model.token.TokenTypes.CHARACTER;
+import lexic.classifiers.Classifier;
+import lexic.classifiers.exceptions.CharacterException;
+import lexic.classifiers.exceptions.IllegalClassifierStateException;
+import lexic.classifiers.exceptions.IllegalStringException;
+import model.Token;
+import model.TokenTypes;
 
 import java.util.Optional;
 
 public class Lexer {
-    private String buffer;
+    private final String buffer;
     
     private Classifier classifier;
     
@@ -38,24 +28,20 @@ public class Lexer {
     
     private static Lexer uniqueInstance;
     
-    private Lexer() {
-        buffer = "";
+    private Lexer( String input ) {
+        buffer = input;
         currentBufferPos = bufferPosAux = currClassifState = 0;
         currentCol = currentRow = 1;
     }
     
-    public static Lexer getInstance() {
+    public static Lexer getInstance( String input ) {
         if ( uniqueInstance == null ) {
-            return new Lexer();
+            uniqueInstance = new Lexer( input );
         }
         return uniqueInstance;
     }
     
-    public void addToBuffer(String line) {
-        this.buffer += line;
-    }
-    
-    public Optional<Token> getNextToken() {
+    public Token getNextToken() {
         Optional<Token> result;
         
         for ( ; currentBufferPos < buffer.length(); ++currentBufferPos ) {
@@ -119,37 +105,37 @@ public class Lexer {
                 result = classifyIfReservedKeywordOfIdentifier();
                 
                 if ( result.isPresent() ) {
-                    return result;
+                    return result.get();
                 }
                 
                 result = classifyIfNumber();
                 
                 if ( result.isPresent() ) {
-                    return result;
+                    return result.get();
                 }
                 
                 result = classifyIfString();
                 
                 if ( result.isPresent() ) {
-                    return result;
+                    return result.get();
                 }
                 
                 result = classifyIfCharacter();
                 
                 if ( result.isPresent() ) {
-                    return result;
+                    return result.get();
                 }
                 
                 result = classifyIfOperatorOrSpecialSymbol();
                 
                 if ( result.isPresent() ) {
-                    return result;
+                    return result.get();
                 }
                 
             } catch ( CharacterException | IllegalStringException e ) {
                 System.out.printf( ">>> Error lexico (linea: %d, posicion: %d)\n", currentRow, currentCol + ( bufferPosAux - currentBufferPos ) );
                 System.exit( 0 );
-            } catch ( IllegalStateException ise ) {
+            } catch ( IllegalClassifierStateException ise ) {
                 System.out.println( "El numero de estado no pertenece al clasificador de " + ise.getClassifierType() );
                 System.exit( -1 );
             }
@@ -160,10 +146,10 @@ public class Lexer {
         
         checkForUnclosedMultilineComment();
         
-        return Optional.empty();
+        return Token.getInstance("EOF", currentRow + 1, 1, TokenTypes.EOF);
     }
     
-    private Optional<Token> classify() throws RuntimeException {
+    /*private Optional<model.token.Token> classify() throws RuntimeException {
         currClassifState = classifier.delta( currentSymbol, 0 );
         
         if ( currClassifState >= 0 ) {
@@ -173,7 +159,7 @@ public class Lexer {
             
             //Loop
             
-            Token result = Token.getInstance( currentLexem, currentRow, currentCol, STRING );
+            model.token.Token result = model.token.Token.getInstance( currentLexem, currentRow, currentCol, model.token.model.TokenTypes.STRING );
             
             currentCol += bufferPosAux - currentBufferPos;
             currentBufferPos = bufferPosAux;
@@ -181,7 +167,7 @@ public class Lexer {
             return Optional.of( result );
         }
         return Optional.empty();
-    }
+    }*/
     
     private Optional<Token> classifyIfReservedKeywordOfIdentifier() throws RuntimeException {
         classifier = Classifier.getIdentifier();
@@ -206,7 +192,7 @@ public class Lexer {
                 currentLexem,
                 currentRow,
                 currentCol,
-                ( reservedKeywords.contains( currentLexem ) ) ? KEYWORD : IDENTIFIER
+                ( TokenTypes.reservedKeywords.contains( currentLexem ) ) ? TokenTypes.KEYWORD : TokenTypes.IDENTIFIER
             );
             
             currentCol += bufferPosAux - currentBufferPos;
@@ -238,7 +224,7 @@ public class Lexer {
                         currentLexem.substring( 0, currentLexem.length() - numToSubstract ),
                         currentRow,
                         currentCol,
-                        currClassifState == 6 ? REAL : INTEGER
+                        currClassifState == 6 ? TokenTypes.REAL : TokenTypes.INTEGER
                     );
                     
                     currentCol += bufferPosAux - currentBufferPos;
@@ -267,7 +253,7 @@ public class Lexer {
                 symbol = buffer.charAt( bufferPosAux );
             }
             
-            Token result = Token.getInstance( currentLexem, currentRow, currentCol, STRING );
+            Token result = Token.getInstance( currentLexem, currentRow, currentCol, TokenTypes.STRING );
             
             currentCol += bufferPosAux - currentBufferPos;
             currentBufferPos = bufferPosAux;
@@ -292,7 +278,7 @@ public class Lexer {
                 symbol = buffer.charAt( bufferPosAux );
             }
             
-            Token result = Token.getInstance( currentLexem, currentRow, currentCol, CHARACTER );
+            Token result = Token.getInstance( currentLexem, currentRow, currentCol, TokenTypes.CHARACTER );
             
             currentCol += bufferPosAux - currentBufferPos;
             currentBufferPos = bufferPosAux;
@@ -324,7 +310,7 @@ public class Lexer {
                 currentLexem,
                 currentRow,
                 currentCol,
-                typeIds.get( currentLexem )
+                TokenTypes.typeIds.get( currentLexem )
             );
             
             currentCol += bufferPosAux - currentBufferPos;

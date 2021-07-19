@@ -1,0 +1,20 @@
+estructura C
+    hacer
+    entero a;
+fin_estructura
+
+estructura Point
+    entero x;
+    entero y;
+    real a,b,c;
+    C c;
+fin_estructura
+
+funcion_principal
+
+    Point p;
+    p.x = 5;
+    p.y = 10;
+    p.c.a = 5;
+
+fin_principal
